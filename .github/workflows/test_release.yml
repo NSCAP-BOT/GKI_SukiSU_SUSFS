@@ -23,7 +23,7 @@ on:
           or "all" to build every kernel.
         required: true
         type: string
-        default: 'all'
+        default: 'a13-5.15'
       kernelsu_variant:
         description: "Select KernelSU"
         required: true
@@ -230,36 +230,37 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
     needs:
       - check-build-status
       - get_manager
     if: always()
     env:
-      REPO_OWNER: ShirkNeko
+      REPO_OWNER: NSCAP-BOT
       REPO_NAME: GKI_KernelSU_SUSFS
       GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
       RELEASE_NAME: "GKI Kernel: ${{ inputs.kernelsu_variant == 'Next' && 'KernelSU-' || '' }} ${{ inputs.kernelsu_variant }}"
       INITIAL_RELEASE_NOTES: |
-        This release includes **${{ inputs.kernelsu_variant == 'Next' && 'KernelSU' || '' }}${{ inputs.kernelsu_variant }}, please note the KSU version here**, SUSFS v1.5.8, LZ4KD
+        This release includes **${{ inputs.kernelsu_variant == 'Next' && 'KernelSU' || '' }}${{ inputs.kernelsu_variant }}, please note the KSU version here**, SUSFS v1.5.8, BBR
         Features:
         -> ${{ inputs.kernelsu_variant == 'Next' && 'KernelSU-' || '' }}${{ inputs.kernelsu_variant }}-${{ inputs.kernelsu_branch }}
         -> SUSFS ඞ v1.5.8
-        -> Manual Syscall Hooks for better hiding
-        -> Magic Mount Support
-        -> Simple hiding for LineageOS detection
-        -> Futile hiding for jit-zygote-cache detection
-        -> Wireguard Support
-        -> BBR Support
-        ${{ inputs.use_kpm && '-> KPM Support' || '' }}
-        -> **LZ4KD&ONEPLUS_LZ4K** ${{ inputs.use_zram && 'supported' || 'not supported' }}
+        -> 手动系统调用挂钩以更好地隐藏
+        -> Magic Mount 支持
+        -> 简单隐藏 LineageOS 检测
+        -> 徒劳隐藏 jit-zygote-cache 检测
+        -> Wireguard 支持
+        -> BBR 支持
+        ${{ inputs.use_kpm && '-> KPM 支持' || '' }}
+        -> **LZ4KD&ONEPLUS_LZ4K**  ${{ inputs.use_zram && '支持' || '不支持' }}
         
         <details>
         <summary>Notes:</summary>
-        - -> In SUS SU Mode 2, it will show as disabled or incompatible, the reason is that non-kprobe hooks were used (when compiling the kernel), and non-kprobe hooks are no longer needed!
-        - -> In the latest version of susfs, flashing AK3 compressed package with Kernel Flasher will brick your device, try [Horizon Kernel Flasher]\(https://github.com/libxzr/HorizonKernelFlasher)!
+        - -> 在SUS SU 模式 2下，会显示为禁用或未完成，原因是使用了非kprobe钩子（编译内核时），并且不再需要非kprobe钩子
+        - -> 在最新版本的susfs中，使用Kernel Flasher烧写AK3包会导致设备变砖，请尝试SukiSU内置的AK3刷写工具！
         </details>
         
-        Modules:
+        susfs模块(可选):
         -> https://github.com/sidex15/ksu_module_susfs
     steps:
       - name: Conditional Release Check
