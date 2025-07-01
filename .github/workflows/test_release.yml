@@ -229,6 +229,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
     needs:
       - check-build-status
       - get_manager
