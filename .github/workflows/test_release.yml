@@ -51,17 +51,17 @@ on:
         description: 'Enable more ZRAM algorithms?'
         required: true
         type: boolean
-        default: true
+        default: false
       use_kpm:
         description: 'Enable KPM functionality?'
         required: true
         type: boolean
-        default: true
+        default: false
       get_manager:
         description: 'Get the latest KSU Manager at the same time?'
         required: true
         type: boolean
-        default: false
+        default: true
 
 jobs:
   get_manager:
