@@ -255,11 +255,11 @@ jobs:
         
         <details>
         <summary>Notes:</summary>
-        - -> 在SUS SU 模式 2下，会显示为禁用或未完成，原因是使用了非kprobe钩子（编译内核时），并且不再需要非kprobe钩子
-        - -> 在最新版本的susfs中，使用Kernel Flasher烧写AK3包会导致设备变砖，请尝试SukiSU内置的AK3刷写工具！
+        - -> 在SUS SU模式 2下，会显示为禁用或未完成，原因是使用了非kprobe钩子（编译内核时），并且不再需要非kprobe钩子
+        - -> 在最新版本的susfs中，使用Kernel Flasher刷写AK3会导致设备变砖，请尝试使用SukiSU内置的AK3刷写工具！
         </details>
         
-        susfs模块(可选):
+        susfs模块(非必要):
         -> https://github.com/sidex15/ksu_module_susfs
     steps:
       - name: Conditional Release Check
